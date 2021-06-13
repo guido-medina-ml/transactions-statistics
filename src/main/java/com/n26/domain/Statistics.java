@@ -3,60 +3,50 @@ package com.n26.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Statistics implements Serializable {
-    private BigDecimal sum;
-    private BigDecimal avg;
-    private BigDecimal max;
-    private BigDecimal min;
-    private long count;
+import static com.n26.utils.Utils.setScale;
 
+public class Statistics implements Serializable {
+    private final BigDecimal sum;
+    private final BigDecimal avg;
+    private final BigDecimal max;
+    private final BigDecimal min;
+    private final long count;
 
     public Statistics(BigDecimal sum, BigDecimal avg, BigDecimal max, BigDecimal min, Long count) {
         super();
-        this.sum = sum.setScale(2, BigDecimal.ROUND_HALF_UP);
-        this.avg = avg.setScale(2, BigDecimal.ROUND_HALF_UP);
-        this.max = max.setScale(2, BigDecimal.ROUND_HALF_UP);
-        this.min = min.setScale(2, BigDecimal.ROUND_HALF_UP);
+        this.sum = setScale(sum);
+        this.avg = setScale(avg);
+        this.max = setScale(max);
+        this.min = setScale(min);
         this.count = count;
+    }
+
+    public Statistics(Transaction transaction) {
+        BigDecimal transactionAmount =  setScale(transaction.getAmount());
+        this.sum = transactionAmount;
+        this.avg = transactionAmount;
+        this.max = transactionAmount;
+        this.min = transactionAmount;
+        this.count = 1L;
     }
 
     public BigDecimal getSum() {
         return sum;
     }
 
-    public void setSum(BigDecimal sum) {
-        this.sum = sum;
-    }
-
     public BigDecimal getAvg() {
         return avg;
-    }
-
-    public void setAvg(BigDecimal avg) {
-        this.avg = avg;
     }
 
     public BigDecimal getMax() {
         return max;
     }
 
-    public void setMax(BigDecimal max) {
-        this.max = max;
-    }
-
     public BigDecimal getMin() {
         return min;
     }
 
-    public void setMin(BigDecimal min) {
-        this.min = min;
-    }
-
     public long getCount() {
         return count;
-    }
-
-    public void setCount(long count) {
-        this.count = count;
     }
 }
