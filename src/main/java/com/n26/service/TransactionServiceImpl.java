@@ -2,6 +2,7 @@ package com.n26.service;
 
 import com.n26.domain.Statistics;
 import com.n26.domain.Transaction;
+import com.n26.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -69,7 +70,12 @@ public class TransactionServiceImpl implements TransactionService {
         if (TRANSACTIONS_LIST.isEmpty()) {
             statistics = new Statistics(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, 0L);
         } else {
-            statistics = new Statistics(BigDecimal.valueOf(stat.getSum()), BigDecimal.valueOf(stat.getAverage()), BigDecimal.valueOf(stat.getMax()), BigDecimal.valueOf(stat.getMin()), stat.getCount());
+            statistics = new Statistics(
+                    Utils.setScale(BigDecimal.valueOf(stat.getSum())),
+                    Utils.setScale(BigDecimal.valueOf(stat.getAverage())),
+                    Utils.setScale(BigDecimal.valueOf(stat.getMax())),
+                    Utils.setScale(BigDecimal.valueOf(stat.getMin())),
+                    stat.getCount());
         }
     }
 

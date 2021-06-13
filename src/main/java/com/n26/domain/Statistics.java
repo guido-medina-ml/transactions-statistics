@@ -14,10 +14,10 @@ public class Statistics implements Serializable {
 
     public Statistics(BigDecimal sum, BigDecimal avg, BigDecimal max, BigDecimal min, Long count) {
         super();
-        this.sum = setScale(sum);
-        this.avg = setScale(avg);
-        this.max = setScale(max);
-        this.min = setScale(min);
+        this.sum = sum;
+        this.avg = avg;
+        this.max = max;
+        this.min = min;
         this.count = count;
     }
 
